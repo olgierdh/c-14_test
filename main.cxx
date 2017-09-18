@@ -3,7 +3,6 @@
 template < typename T, int N > struct tag
 {
     constexpr friend auto loophole( tag< T, N > );
-    constexpr friend int cloophole( tag< T, N > );
 };
 
 template < typename T, typename U, int N > struct fnc_def
@@ -11,10 +10,6 @@ template < typename T, typename U, int N > struct fnc_def
     constexpr friend auto loophole( tag< T, N > )
     {
         return U{};
-    }
-    constexpr friend int cloophole( tag< T, N > )
-    {
-        return 0;
     }
 };
 
@@ -44,7 +39,10 @@ template < typename First, typename Second > struct m_pair
 };
 
 template < typename T, typename N, typename = decltype( map_impl< T, N >{} ) >
-constexpr int register_type_f( m_tag< T > );
+constexpr int register_type_f( m_tag< T > )
+{
+    return 0;
+}
 
 template < typename T, typename N >
 using register_type = decltype( register_type_f< T, N >( m_tag< T >{} ),
@@ -83,7 +81,7 @@ int main( int argc, const char* argv[] )
     static_assert( std::is_same< decltype( get_m( m_tag< int >{} ) ), bar >::value, "" );
     static_assert( std::is_same< decltype( get_m( m_tag< char >{} ) ), foo >::value, "" );
 
-    using value_type = decltype( foo{c_op< foo, 0 >{}, c_op< foo, 1 >{}} );
+    using vt = decltype( foo{c_op< foo, 0 >{}, c_op< foo, 1 >{}} );
     static_assert( std::is_same< decltype( loophole( tag< foo, 0 >{} ) ), int >::value,
                    "" );
 #endif
