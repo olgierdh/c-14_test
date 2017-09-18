@@ -78,11 +78,8 @@ int main( int argc, const char* argv[] )
 #if 1
     using t0 = register_types< m_pair< foo, char >, m_pair< bar, int > >;
 
-    using m_type  = decltype( get_m( m_tag< foo >{} ) );
-    using m_type1 = decltype( get_m( m_tag< bar >{} ) );
-
-    static_assert( std::is_same< m_type, char >::value, "" );
-    static_assert( std::is_same< m_type1, int >::value, "" );
+    static_assert( std::is_same< decltype( get_m( m_tag< foo >{} ) ), char >::value, "" );
+    static_assert( std::is_same< decltype( get_m( m_tag< bar >{} ) ), int >::value, "" );
     static_assert( std::is_same< decltype( get_m( m_tag< int >{} ) ), bar >::value, "" );
     static_assert( std::is_same< decltype( get_m( m_tag< char >{} ) ), foo >::value, "" );
 
