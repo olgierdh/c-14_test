@@ -73,7 +73,6 @@ struct bar
 
 int main( int argc, const char* argv[] )
 {
-#if 1
     using t0 = register_types< m_pair< foo, char >, m_pair< bar, int > >;
 
     static_assert( std::is_same< decltype( get_m( m_tag< foo >{} ) ), char >::value, "" );
@@ -84,6 +83,5 @@ int main( int argc, const char* argv[] )
     using vt = decltype( foo{c_op< foo, 0 >{}, c_op< foo, 1 >{}} );
     static_assert( std::is_same< decltype( loophole( tag< foo, 0 >{} ) ), int >::value,
                    "" );
-#endif
     return 0;
 }

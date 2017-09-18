@@ -38,6 +38,8 @@ flags = [
     '-x',
     'c++',
     '-std=c++14',
+    '-Wall',
+    '-pedantic',
     '-I./inc/',
     '-I./',
 ]
